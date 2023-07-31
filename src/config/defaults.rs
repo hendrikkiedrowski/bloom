@@ -42,6 +42,10 @@ pub fn cache_ttl_default() -> usize {
     600
 }
 
+pub fn cache_auth_header() -> String {
+    "authorization".to_string()
+}
+
 pub fn cache_executor_pool() -> u16 {
     64
 }

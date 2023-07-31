@@ -17,7 +17,7 @@ pub struct ProxyHeader;
 impl ProxyHeader {
     pub fn parse_from_request(headers: Headers) -> (Headers, String, u8) {
         // Request header: 'Authorization'
-        let auth = match headers.get_raw("authorization") {
+        let auth = match headers.get_raw(&*APP_CONF.cache.auth_header) {
             None => defaults::REQUEST_AUTHORIZATION_DEFAULT,
             Some(value) => from_utf8(value.one().unwrap_or(&[]))
                 .unwrap_or(defaults::REQUEST_AUTHORIZATION_DEFAULT),

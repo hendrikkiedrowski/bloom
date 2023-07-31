@@ -53,6 +53,7 @@ bloom:
           #      - chart-example.local
   cache:
     ttl_default: 600
+    auth_header: ""
     executor_pool: 64
     disable_read: false
     disable_write: false

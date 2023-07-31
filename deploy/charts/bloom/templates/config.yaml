@@ -32,6 +32,7 @@ data:
     [cache]
 
     ttl_default = {{ .Values.bloom.cache.ttl_default | default 600 }}
+    auth_header = {{ .Values.bloom.cache.auth_header | default "authorization"}}
     executor_pool = {{ .Values.bloom.cache.executor_pool | default 64 }}
 
     disable_read = {{ .Values.bloom.cache.disable_read | default false}}
