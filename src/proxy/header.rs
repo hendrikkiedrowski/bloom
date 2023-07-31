@@ -4,10 +4,11 @@
 // Copyright: 2017, Valerian Saliou <valerian@valeriansaliou.name>
 // License: Mozilla Public License v2.0 (MPL v2.0)
 
+use std::collections::HashSet;
 use hyper::header::{ETag, Header, Vary};
 use hyper::Headers;
 use std::str::from_utf8;
-use unicase::Ascii;
+use unicase::{Ascii, UniCase};
 
 use super::defaults;
 use crate::{header::request_shard::HeaderRequestBloomRequestShard, APP_CONF};
@@ -17,7 +18,11 @@ pub struct ProxyHeader;
 impl ProxyHeader {
     pub fn parse_from_request(headers: Headers) -> (Headers, String, u8) {
         // Request header: 'Authorization'
-        debug!("Request headers {}", headers);
+        //debug!("Request headers {}", headers);
+        for x in headers.iter() {
+            debug!("{}", x.name())
+        }
+
         let auth = match headers.get_raw(&*APP_CONF.cache.auth_header) {
             None => defaults::REQUEST_AUTHORIZATION_DEFAULT,
             Some(value) => from_utf8(value.one().unwrap_or(&[]))
