@@ -27,7 +27,7 @@ impl ProxyHeader {
                         .unwrap_or(defaults::REQUEST_AUTHORIZATION_DEFAULT)
                         .to_string();
                 } else {
-                    debug!("Authorization header not found");
+                    debug!("Authorization header not found {} is not {} ", x.name().to_lowercase(),&*APP_CONF.cache.auth_header.to_lowercase());
                     auth_header = defaults::REQUEST_AUTHORIZATION_DEFAULT.to_string();
                 }
             }
