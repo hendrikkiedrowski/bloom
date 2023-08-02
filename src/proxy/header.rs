@@ -22,17 +22,10 @@ impl ProxyHeader {
             let mut auth_header = defaults::REQUEST_AUTHORIZATION_DEFAULT.to_string();
             for x in headers.iter() {
                 if x.name().to_lowercase() == &*APP_CONF.cache.auth_header.to_lowercase() {
-                    debug!("Authorization header found");
                     auth_header = from_utf8(x.raw().one().unwrap_or(&[]))
                         .unwrap_or(defaults::REQUEST_AUTHORIZATION_DEFAULT)
                         .to_string();
-                } else {
-                    debug!(
-                        "Authorization header not found {} is not {} ",
-                        x.name().to_lowercase(),
-                        &*APP_CONF.cache.auth_header.to_lowercase()
-                    );
-                    auth_header = defaults::REQUEST_AUTHORIZATION_DEFAULT.to_string();
+                    debug!("Authorization header found setting {}", auth_header);
                 }
             }
             return auth_header;
