@@ -7,7 +7,7 @@
 use hyper::header::{ETag, Header, Vary};
 use hyper::Headers;
 use std::str::from_utf8;
-use unicase::{Ascii};
+use unicase::Ascii;
 
 use super::defaults;
 use crate::{header::request_shard::HeaderRequestBloomRequestShard, APP_CONF};
@@ -23,7 +23,9 @@ impl ProxyHeader {
             for x in headers.iter() {
                 if x.name().to_lowercase() == &*APP_CONF.cache.auth_header.to_lowercase() {
                     debug!("Authorization header found");
-                    auth_header = from_utf8(x.raw().one().unwrap_or(&[])).unwrap_or(defaults::REQUEST_AUTHORIZATION_DEFAULT).to_string();
+                    auth_header = from_utf8(x.raw().one().unwrap_or(&[]))
+                        .unwrap_or(defaults::REQUEST_AUTHORIZATION_DEFAULT)
+                        .to_string();
                 } else {
                     debug!("Authorization header not found");
                     auth_header = defaults::REQUEST_AUTHORIZATION_DEFAULT.to_string();
